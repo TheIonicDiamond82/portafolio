@@ -46,7 +46,7 @@
             color: #9c88ff;
         }
         footer {
-            background-color: #2f3640;
+            background-color: #1b1b1b;
             color: #7f8fa6;
             padding: 20px 0;
             text-align: center;
@@ -191,24 +191,49 @@
     margin-left: 8px; /* Espacio entre el texto y el ícono de carga */
 }
 /* Estilo base para las secciones */
+/* Estilo base para las secciones */
+/* Estilo base para las secciones */
 .section {
-    display: none; /* Oculta las secciones por defecto */
     opacity: 0; /* Oculta visualmente */
-    transition: opacity 0.8s ease, transform 0.8s ease; /* Suaviza la transición */
-    transform: translateY(-80px); /* Desplazamiento hacia abajo */
+    transform: translateY(-80px); /* Desplazamiento inicial */
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    position: relative; /* Mantiene el flujo del documento */
 }
 
 /* Cuando la sección es visible */
 .section.visible {
-    display: block; /* Muestra la sección */
     opacity: 1; /* Hace visible la sección */
     transform: translateY(0); /* Regresa a la posición original */
 }
+
+/* Corrige el conflicto con los modales */
+.modal.show {
+    opacity: 1 !important;
+    transform: none !important;
+    display: block !important;
+}
+
+/* Estilo para las secciones animadas */
+.animate-section {
+    opacity: 0; /* Sección invisible al principio */
+    position: relative; /* Necesario para usar top */
+    top: -50px; /* Desplazamos la sección hacia arriba fuera de la vista */
+    pointer-events: none; /* Desactiva la interacción mientras no es visible */
+    transition: opacity 0.8s ease, top 0.8s ease; /* Animamos la opacidad y el desplazamiento con top */
+}
+
+/* Estilo cuando la sección está visible */
+.animate-section.visible {
+    opacity: 1; /* Sección visible */
+    top: 0; /* Regresa a su posición original (se desplaza hacia abajo) */
+    pointer-events: auto; /* Habilita la interacción cuando la sección está visible */
+}
+
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Portafolio</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -221,9 +246,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#web-projects">Proyectos Web</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#development-projects">Proyectos de Desarrollo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#data-science-projects">Ciencia de Datos</a>
@@ -249,7 +271,7 @@
     </header>
 
     <!-- Sobre mí -->
-    <section id="about" class="py-5 section">
+    <section id="about" class="py-5 animate-section">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-8">
@@ -274,7 +296,7 @@
     </section>
 
     <!-- Sección Proyectos Web -->
-    <section id="web-projects" class="py-5 bg-dark section">
+    <section id="web-projects" class="py-5 bg-dark animate-section">
         <div class="container">
             <h2 class="text-center mb-4">Proyectos Web</h2>
             <div class="text-center mb-3">
@@ -454,7 +476,7 @@
     </section>
 
     <!-- Sección Proyectos de Desarrollo/Aplicaciones -->
-    <section id="development-projects" class="py-5 section">
+    <section id="development-projects" class="py-5 animate-section">
         <div class="container">
             <h2 class="text-center mb-4">Proyectos de Desarrollo/Aplicaciones</h2>
             <div class="text-center mb-3">
@@ -470,18 +492,19 @@
                             <div class="row g-0">
                                 <!-- Sección de imagen -->
                                 <div class="col-md-4">
-                                    <a href="#developmentProjectsList"><img src="Assets/GeneradorQR.png" class="img-fluid rounded-start rounded-4" alt="Imagen Proyecto Generador QR" data-bs-toggle="modal" data-bs-target="#imageModalQR"></a>
+                                    <a href="#developmentProjectsList"><img src="Assets/GeneradorQR.PNG" class="img-fluid rounded-start rounded-4" alt="Imagen Proyecto Generador QR" data-bs-toggle="modal" data-bs-target="#imageModalQR"></a>
                                 </div>
+
                                 <!-- Modal -->
                                 <div class="modal fade" id="imageModalQR" tabindex="-1" aria-labelledby="imageModalQRLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
+                                    <div class="modal-dialog modal-md">
                                         <div class="modal-content bg-dark text-white">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="imageModalQRLabel">Generador de Códigos QR Personalizados</h5>
+                                                <h5 class="modal-title" id="imageModalQRLabel">Imagen Generador de Códigos QR Personalizados</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="Assets/generador_qr.png" class="img-fluid" alt="Imagen Proyecto Generador QR">
+                                                <img src="Assets/GeneradorQR.PNG" class="img-fluid" alt="Imagen Proyecto Ciencia de Datos">
                                             </div>
                                         </div>
                                     </div>
@@ -490,57 +513,8 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Generador de Códigos QR Personalizados con Procesamiento de Imágenes</h5>
                                         <p class="card-text">Aplicación web interactiva para generar códigos QR personalizados con opciones avanzadas de diseño, incluyendo color, fondo y logos. Utiliza procesamiento de imágenes para detectar colores dominantes en logos y mejorar la estética del QR. Desarrollado con Streamlit y disponible para pruebas en línea.</p>
-                                        <a href="https://generador-qr-personalizado-cuxfek4gxofkcakbghhxla.streamlit.app/" class="btn btn-primary">Ver Proyecto <i class="fas fa-external-link"></i></a>
+                                        <a href="https://generador-qr-personalizado-cuxfek4gxofkcakbghhxla.streamlit.app/" class="btn btn-primary">Ver Proyecto<i class="fas fa-external-link"></i></a>
                                         <a href="https://github.com/TheIonicDiamond82/Generador-QR-Personalizado" class="btn btn-primary">Ver Codigo <i class="fas fa-code"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección Proyectos de Ciencia de Datos -->
-    <section id="data-science-projects" class="py-5 section">
-        <div class="container">
-            <h2 class="text-center mb-4">Proyectos de Ciencia de Datos</h2>
-            <div class="text-center mb-3">
-                <button class="btn btn-dark ov-btn-slide-left-dark" type="button" data-bs-toggle="collapse" data-bs-target="#dataScienceProjectsList" aria-expanded="false" aria-controls="dataScienceProjectsList">
-                    Desplegar Proyectos
-                </button>
-            </div>
-            <div class="collapse" id="dataScienceProjectsList">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Proyectos Publicados</h3>
-                        <div class="card mb-3 bg-secondary text-white">
-                            <div class="row g-0">
-                                <!-- Sección de imagen -->
-                                <div class="col-md-4">
-                                    <a href="#dataScienceProjectsList"><img src="Assets/Dashboard fuga de empleados.PNG" class="img-fluid rounded-start rounded-4" alt="Imagen Proyecto Dashboard Fuga de Empleados" data-bs-toggle="modal" data-bs-target="#imageModal"></a>
-                                </div>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content bg-dark text-white">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="imageModalLabel">Imagen Proyecto Ciencia de Datos</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <img src="Assets/Dashboard fuga de empleados.PNG" class="img-fluid" alt="Imagen Proyecto Ciencia de Datos">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Dashboard de Análisis de Fuga de Empleados</h5>
-                                        <p class="card-text">Este dashboard interactivo en Tableau permite analizar la fuga de talento en una empresa, ofreciendo herramientas para identificar patrones de abandono y los factores clave que influyen en la salida del personal. Incluye visualizaciones de métricas clave, segmentación del riesgo de fuga mediante scoring predictivo y un análisis de costos asociados a la pérdida de talento. Esta herramienta proporciona insights estratégicos para optimizar la retención de empleados.</p>
-                                        <a href="https://public.tableau.com/app/profile/jesus.eduardo.uriarte.avelar/viz/shared/2PS7KWYBG" class="btn btn-primary"></i>Ver Proyecto <i class="fas fa-external-link"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -567,9 +541,72 @@
             </div>
         </div>
     </section>
-
+    <!-- Sección Proyectos de Ciencia de Datos -->
+    <section id="data-science-projects" class="py-5 bg-dark animate-section">
+        <div class="container">
+            <h2 class="text-center mb-4">Proyectos de Ciencia de Datos</h2>
+            <div class="text-center mb-3">
+                <button class="btn btn-light ov-btn-slide-left-light" type="button" data-bs-toggle="collapse" data-bs-target="#dataScienceProjectsList" aria-expanded="false" aria-controls="dataScienceProjectsList">
+                    Desplegar Proyectos
+                </button>
+            </div>
+            <div class="collapse" id="dataScienceProjectsList">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Proyectos Publicados</h3>
+                        <div class="card mb-3 bg-secondary text-white">
+                            <div class="row g-0">
+                                <!-- Sección de imagen -->
+                                <div class="col-md-4">
+                                    <a href="#dataScienceProjectsList"><img src="Assets/Dashboard fuga de empleados.PNG" class="img-fluid rounded-start rounded-4" alt="Imagen Proyecto Dashboard Fuga de Empleados" data-bs-toggle="modal" data-bs-target="#imageModal"></a>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl">
+                                        <div class="modal-content bg-dark text-white">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="imageModalLabel">Imagen Proyecto Ciencia de Datos</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="Assets/Dashboard fuga de empleados.PNG" class="img-fluid" alt="Imagen Proyecto Ciencia de Datos">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Dashboard de Análisis de Fuga de Empleados</h5>
+                                        <p class="card-text">Este dashboard interactivo en Tableau permite analizar la fuga de talento en una empresa, ofreciendo herramientas para identificar patrones de abandono y los factores clave que influyen en la salida del personal. Incluye visualizaciones de métricas clave, segmentación del riesgo de fuga mediante scoring predictivo y un análisis de costos asociados a la pérdida de talento. Esta herramienta proporciona insights estratégicos para optimizar la retención de empleados.</p>
+                                        <a href="https://public.tableau.com/app/profile/jesus.eduardo.uriarte.avelar/viz/shared/2PS7KWYBG" class="btn btn-primary">Ver Proyecto <i class="fas fa-external-link"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-6">
+                        <h3>Proyectos en GitHub</h3>
+                        <div class="card mb-3 bg-secondary text-white">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="[ruta-de-imagen-github]" class="img-fluid rounded-start" alt="Imagen Proyecto GitHub">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">[Nombre del Proyecto en GitHub]</h5>
+                                        <p class="card-text">Descripción del proyecto en repositorio de GitHub.</p>
+                                        <a href="https://github.com/tu-usuario" class="btn btn-secondary">Ver en GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Sección Proyectos de Inteligencia Artificial -->
-    <section id="ai-projects" class="py-5 bg-dark section">
+    <section id="ai-projects" class="py-5 animate-section">
         <div class="container">
             <h2 class="text-center mb-4">Proyectos de Inteligencia Artificial</h2>
             <h3 class="text-center mb-4">
@@ -625,7 +662,7 @@
     </section>
 
     <!-- Contacto -->
-    <section id="contact" class="py-5 section">
+    <section id="contact" class="py-5 bg-dark animate-section">
         <div class="container text-center">
             <h2>Contacto</h2>
             <div class="social-icons mt-4">
@@ -641,23 +678,21 @@
         <p><i class="fas fa-copyright"></i> 2024 Jesús Eduardo Uriarte Avelar. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-    const sections = document.querySelectorAll(".section");
-    
-    sections.forEach((section, index) => {
-        // Muestra la sección después de un retraso específico
-        setTimeout(() => {
-            section.style.display = "block"; // Muestra la sección
-            setTimeout(() => {
-                section.classList.add("visible"); // Agrega la clase para la animación
-            }, 10); // Pequeño retraso para la animación
-        }, index * 600); // Retraso basado en el índice (500 ms entre secciones)
-    });
-});
+            const sections = document.querySelectorAll(".animate-section"); // Selecciona todas las secciones
+        
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.classList.add("visible"); // Agrega la clase "visible" para mostrar la sección
+                }, index * 600); // Retraso entre las secciones
+            });
+        });
     </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css">
 </body>
