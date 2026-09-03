@@ -94,7 +94,7 @@ function About() {
                   <p>
                     <span className="text-zinc-500">name:</span>{' '}
                     <span className="text-green-400">
-                      &quot;Jesús Eduardo&quot;
+                      &quot;Jesús Eduardo Uriarte Avelar&quot;
                     </span>
                     ,
                   </p>

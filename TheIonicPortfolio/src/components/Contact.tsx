@@ -105,7 +105,7 @@ function Contact() {
 
           {/* LinkedIn */}
           <a
-            href="https://www.linkedin.com/in/jesus-eduardo-uriarte-avelar-8204131a/"
+            href="https://www.linkedin.com/in/jesus-eduardo-uriarte-avelar-8204131a5/"
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-2xl border border-[#272333] bg-[#12121C] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#6D28D9] hover:bg-[#181824]"
