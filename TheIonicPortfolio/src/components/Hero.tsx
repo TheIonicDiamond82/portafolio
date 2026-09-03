@@ -226,7 +226,7 @@ function Hero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             {/* CV Español */}
             <a
-              href="/CV's/Currículum Vitae - Español.pdf"
+              href={`${import.meta.env.BASE_URL}/CV's/Currículum Vitae - Español.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               className="group relative inline-flex items-center justify-between gap-3 overflow-hidden rounded-xl border border-white/10 bg-[#12121C]/80 px-4 py-3 font-mono text-xs text-zinc-300 shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8B5CF6]/50 hover:bg-[#8B5CF6]/10 hover:text-white hover:shadow-[0_0_25px_rgba(139,92,246,0.2)]"
@@ -256,7 +256,7 @@ function Hero() {
 
             {/* Resume Inglés */}
             <a
-              href="/CV's/Resume - English.pdf"
+              href={`${import.meta.env.BASE_URL}/CV's/Resume - English.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               className="group relative inline-flex items-center justify-between gap-3 overflow-hidden rounded-xl border border-white/10 bg-[#12121C]/80 px-4 py-3 font-mono text-xs text-zinc-300 shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#A855F7]/50 hover:bg-[#A855F7]/10 hover:text-white hover:shadow-[0_0_25px_rgba(168,85,247,0.2)]"
