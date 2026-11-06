@@ -5,7 +5,7 @@ export interface Project {
   category: 'Web' | 'Desarrollo' | 'Data Science' | 'AI'
   image: string
   demo?: string
-  github?: string
+  github?: string | { frontend?: string; backend?: string }
   private?: boolean
 }
 
@@ -110,5 +110,18 @@ export const projects: Project[] = [
     image: `${import.meta.env.BASE_URL}projects/Dashboard fuga de empleados.PNG`,
     demo:
       'https://public.tableau.com/app/profile/jesus.eduardo.uriarte.avelar/viz/shared/2PS7KWYBG',
+  },
+{
+    title: 'Plataforma CRUD de Gestión de Empleados y Métricas Operativas',
+    description:
+      'Sistema web full-stack para la administración integral de personal, implementando operaciones CRUD, control de bajas lógicas y un panel gerencial con métricas en tiempo real. Desarrollado con Vue 3, Vite, Tailwind CSS, ASP.NET, PostgreSQL mediante Supabase y despliegue contenerizado con Docker.',
+    technologies: ['Vue 3', 'Vite', 'Tailwind CSS', 'ASP.NET', 'PostgreSQL', 'Supabase', 'Docker'],
+    category: 'Web',
+    image: `${import.meta.env.BASE_URL}projects/ABCEmpleados.png`,
+    demo: 'https://theionicdiamond82.github.io/abc-empleados/',
+    github: {
+      frontend: 'https://github.com/TheIonicDiamond82/abc-empleados', // Repositorio del Frontend (GitHub Pages)
+      backend: 'https://github.com/TheIonicDiamond82/abc-empleados-api-backend' // Repositorio del Backend (.NET 10)
+    },
   },
 ]

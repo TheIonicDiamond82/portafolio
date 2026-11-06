@@ -1,5 +1,8 @@
 import { ArrowUpRight, LockKeyhole } from 'lucide-react'
 
+// Soporta enlace único (string) o enlaces separados para Frontend / Backend
+type GitHubLinks = string | { frontend?: string; backend?: string }
+
 interface ProjectCardProps {
   title: string
   description: string
@@ -7,7 +10,7 @@ interface ProjectCardProps {
   category: string
   image: string
   demo?: string
-  github?: string
+  github?: GitHubLinks
   private?: boolean
 }
 
@@ -34,6 +37,11 @@ function ProjectCard({
   github,
   private: isPrivate = false,
 }: ProjectCardProps) {
+  // Helpers para evaluar el tipo de propiedad github pasada
+  const isGithubString = typeof github === 'string'
+  const isGithubObject = typeof github === 'object' && github !== null
+  const hasAnyGithub = isGithubString || (isGithubObject && (github.frontend || github.backend))
+
   return (
     <article className="group overflow-hidden rounded-2xl border border-[#272333] bg-[#12121C] transition-all duration-500 hover:-translate-y-1 hover:border-[#6D28D9] hover:shadow-[0_20px_60px_rgba(109,40,217,0.15)]">
       {/* Contenedor de Imagen */}
@@ -93,7 +101,7 @@ function ProjectCard({
         </div>
 
         {/* Links */}
-        <div className="mt-6 flex items-center gap-4 border-t border-[#272333] pt-5">
+        <div className="mt-6 flex flex-wrap items-center gap-4 border-t border-[#272333] pt-5">
           {demo && !isPrivate && (
             <a
               href={demo}
@@ -106,7 +114,8 @@ function ProjectCard({
             </a>
           )}
 
-          {github && (
+          {/* GitHub Único */}
+          {isGithubString && (
             <a
               href={github}
               target="_blank"
@@ -119,7 +128,38 @@ function ProjectCard({
             </a>
           )}
 
-          {isPrivate && !github && (
+          {/* GitHub Múltiple (Frontend / Backend) */}
+          {isGithubObject && (
+            <>
+              {github.frontend && (
+                <a
+                  href={github.frontend}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#A1A1AA] transition-colors hover:text-white"
+                  aria-label={`Ver código Frontend de ${title} en GitHub`}
+                >
+                  <GitHubIcon />
+                  Front
+                </a>
+              )}
+
+              {github.backend && (
+                <a
+                  href={github.backend}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#A1A1AA] transition-colors hover:text-white"
+                  aria-label={`Ver código Backend de ${title} en GitHub`}
+                >
+                  <GitHubIcon />
+                  Back
+                </a>
+              )}
+            </>
+          )}
+
+          {isPrivate && !hasAnyGithub && (
             <span className="text-xs text-[#71717A]">
               Proyecto privado
             </span>
